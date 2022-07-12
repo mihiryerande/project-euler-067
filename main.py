@@ -22,7 +22,10 @@
 #         it would take over twenty billion years to check them all.
 #       There is an efficient algorithm to solve it. ;o)
 
-def read_triangle(filename):
+from typing import List, Tuple
+
+
+def read_triangle(filename: str) -> List[List[int]]:
     """
     Reads the number triangle written in the given `filename`.
 
@@ -30,7 +33,10 @@ def read_triangle(filename):
         filename (str): Name of file containing number triangle
 
     Returns:
-        Number triangle as a list of int list
+        (List[List[int]]): Number triangle as a list of int list
+
+    Raises:
+        AssertError: if incorrect args are given
     """
     assert type(filename) == str
 
@@ -39,7 +45,7 @@ def read_triangle(filename):
     return triangle
 
 
-def compute_trellis(triangle):
+def compute_trellis(triangle: List[List[int]]) -> List[List[Tuple[int, int]]]:
     """
     Given a number `triangle`, returns a 'trellis',
       computed using dynamic programming,
@@ -79,7 +85,7 @@ def compute_trellis(triangle):
     return trellis
 
 
-def compute_best_path(triangle, trellis):
+def compute_best_path(triangle: List[List[int]], trellis: List[List[Tuple[int, int]]]) -> Tuple[int, List[int]]:
     """
     Given a number `triangle`, and the corresponding `trellis`,
         returns the maximum achievable total path sum
@@ -91,9 +97,10 @@ def compute_best_path(triangle, trellis):
        trellis (List[List[Tuple[int, int]]]): Computed trellis
 
     Returns:
-        Tuple of...
-          * (int)      Maximum Path Sum
-          * (int list) Maximum Path elements
+        (Tuple[int, List[int]]):
+            Tuple of...
+              * (int)      Maximum Path Sum
+              * (int list) Maximum Path elements
     """
     # First find the index of the best path's endpoint in the final row
     endpoint = max(enumerate(trellis[-1]), key=lambda x: x[1][0])
@@ -117,7 +124,7 @@ def compute_best_path(triangle, trellis):
     return best_sum, best_path
 
 
-def main(filename):
+def main(filename: str) -> Tuple[int, List[int]]:
     """
     Returns the maximum achievable total path sum
       walking down the triangle from top to bottom,
@@ -127,9 +134,10 @@ def main(filename):
         filename (str): Name of file containing number triangle
 
     Returns:
-        Tuple of...
-          * (int)      Maximum Path Sum
-          * (int list) Maximum Path elements
+        (Tuple[int, List[int]]):
+            Tuple of...
+              * (int)      Maximum Path Sum
+              * (int list) Maximum Path elements
     """
     assert type(filename) == str
 
